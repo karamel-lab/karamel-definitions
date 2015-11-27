@@ -1,0 +1,60 @@
+name: SparkWithHDFSBareMetal
+baremetal:
+  ips: [
+    ]
+  sudoPassword: ''
+  username: vagrant
+cookbooks:
+  hadoop:
+    branch: master
+    github: hopshadoop/apache-hadoop-chef
+  spark:
+    branch: master
+    github: hopshadoop/spark-chef
+attrs:
+  hadoop:
+    mr:
+      user: vagrant
+    yarn:
+      user: vagrant
+  hdfs:
+    user: vagrant
+  spark:
+    user: vagrant
+groups:
+  datanodes:
+    size: 1
+    baremetal:
+      ips:
+      - 172.28.128.6
+      sudoPassword: ''
+    attrs:
+      hadoop:
+        mr:
+          user: vagrant
+        yarn:
+          user: vagrant
+      hdfs:
+        user: vagrant
+    recipes:
+    - spark::worker
+    - hadoop::nm
+    - hadoop::dn
+  namenodes:
+    size: 1
+    baremetal:
+      ips:
+      - 172.28.128.5
+      sudoPassword: ''
+    attrs:
+      hadoop:
+        mr:
+          user: vagrant
+        yarn:
+          user: vagrant
+      hdfs:
+        user: vagrant
+    recipes:
+    - hadoop::nn
+    - spark::master
+    - hadoop::rm

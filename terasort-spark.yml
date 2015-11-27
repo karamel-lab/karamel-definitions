@@ -1,0 +1,23 @@
+name: TeraSort
+baremetal:
+  ips: [
+    ]
+  sudoPassword: ''
+  username: vagrant
+cookbooks:
+  spark_terasort:
+    branch: master
+    github: karamel-lab/spark_terasort
+attrs: {
+  }
+groups:
+  datanodes:
+    size: 1
+    baremetal:
+      ips:
+      - 172.28.128.5
+      sudoPassword: ''
+    attrs: {
+      }
+    recipes:
+    - spark_terasort::experiment
