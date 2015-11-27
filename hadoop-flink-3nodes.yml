@@ -1,0 +1,77 @@
+name: FlinkWithHDFSBareMetal3Nodes
+baremetal:
+  ips: [
+    ]
+  sudoPassword: ''
+  username: vagrant
+cookbooks:
+  hadoop:
+    branch: master
+    github: karamel-lab/apache-hadoop-chef
+  flink:
+    branch: master
+    github: karamel-lab/flink-chef
+attrs:
+  hadoop:
+    mr:
+      user: vagrant
+    yarn:
+      user: vagrant
+  hdfs:
+    user: vagrant
+  flink:
+    jobmanager:
+      heap_mbs: '1024'
+    user: vagrant
+    taskmanager:
+      heap_mbs: '1024'
+groups:
+  datanodes:
+    size: 2
+    baremetal:
+      ips:
+      - 172.28.128.6
+      - 172.28.128.7
+      sudoPassword: ''
+    attrs:
+      hadoop:
+        mr:
+          user: vagrant
+        yarn:
+          user: vagrant
+      hdfs:
+        user: vagrant
+      flink:
+        jobmanager:
+          heap_mbs: '1024'
+        user: vagrant
+        taskmanager:
+          heap_mbs: '1024'
+    recipes:
+    - hadoop::dn
+    - hadoop::nm
+    - flink::taskmanager
+  namenodes:
+    size: 1
+    baremetal:
+      ips:
+      - 172.28.128.5
+      sudoPassword: ''
+    attrs:
+      hadoop:
+        mr:
+          user: vagrant
+        yarn:
+          user: vagrant
+      hdfs:
+        user: vagrant
+      flink:
+        jobmanager:
+          heap_mbs: '1024'
+        user: vagrant
+        taskmanager:
+          heap_mbs: '1024'
+    recipes:
+    - hadoop::nn
+    - hadoop::rm  
+    - flink::jobmanager

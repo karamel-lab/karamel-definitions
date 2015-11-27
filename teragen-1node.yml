@@ -1,0 +1,25 @@
+name: TeraGen
+baremetal:
+  ips: [
+    ]
+  sudoPassword: ''
+  username: vagrant
+cookbooks:
+  teragen:
+    branch: master
+    github: karamel-lab/teragen
+attrs:
+  teragen:
+    group: vagrant
+    user: vagrant
+groups:
+  datanodes:
+    size: 1
+    baremetal:
+      ips:
+      - 172.28.128.5
+      sudoPassword: ''
+    attrs: {
+      }
+    recipes:
+    - teragen::experiment
