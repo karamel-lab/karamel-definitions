@@ -1,0 +1,71 @@
+name: SparkKafka3Nodes
+baremetal:
+  ips: [
+    ]
+  sudoPassword: ''
+  username: vagrant
+cookbooks:                                                                      
+  hadoop: 
+    github: "karamel-lab/apache-hadoop-chef"
+  spark: 
+    github: "hopshadoop/spark-chef"
+  kzookeeper: 
+    github: "hopshadoop/kzookeeper"
+  kkafka: 
+    github: "karamel-lab/kkafka"
+attrs:
+  hadoop:
+    mr:
+      user: vagrant
+    yarn:
+      user: vagrant
+  hdfs:
+    user: vagrant
+  spark:
+    user: vagrant
+groups:
+  namenodes:
+    size: 1
+    baremetal:
+      ips:
+      - 172.28.128.5
+      sudoPassword: ''
+    attrs:
+      hadoop:
+        version: 2.7.1
+        mr:
+          user: vagrant
+        yarn:
+          user: vagrant
+      hdfs:
+        user: vagrant
+      spark:
+        user: vagrant
+    recipes:
+    - hadoop::nn
+    - hadoop::rm
+    - spark::master
+  datanodes:
+    size: 2
+    baremetal:
+      ips:
+      - 172.28.128.6
+      - 172.28.128.7
+      sudoPassword: ''
+    attrs:
+      hadoop:
+        version: 2.7.1
+        mr:
+          user: vagrant
+        yarn:
+          user: vagrant
+      hdfs:
+        user: vagrant
+      spark:
+        user: vagrant
+    recipes:
+    - hadoop::dn
+    - hadoop::nm
+    - spark::worker
+    - kzookeeper
+    - kkafka
