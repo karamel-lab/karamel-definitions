@@ -1,0 +1,34 @@
+name: SparkWithHDFSEC2
+ec2:
+    type: m3.medium
+    region: eu-west-1
+cookbooks:
+  hadoop:
+    branch: master
+    github: karamel-lab/apache-hadoop-chef
+  spark:
+    branch: master
+    github: ashansa/spark-chef
+attrs:
+  hadoop:
+    mr:
+      user: ubuntu
+    yarn:
+      user: ubuntu
+  hdfs:
+    user: ubuntu
+  spark:
+    user: ubuntu
+groups:
+  namenodes:
+    size: 1
+    recipes:
+    - hadoop::nn
+    - spark::master
+    - hadoop::rm
+  datanodes:
+    size: 1
+    recipes:
+    - spark::worker
+    - hadoop::nm
+    - hadoop::dn

@@ -13,7 +13,7 @@ attrs:
     group: vagrant
     user: vagrant
 groups:
-  datanodes:
+  namenode:
     size: 1
     baremetal:
       ips:

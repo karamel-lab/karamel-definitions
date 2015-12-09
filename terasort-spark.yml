@@ -11,7 +11,7 @@ cookbooks:
 attrs: {
   }
 groups:
-  datanodes:
+  namenode:
     size: 1
     baremetal:
       ips:

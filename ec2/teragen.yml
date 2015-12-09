@@ -13,11 +13,11 @@ attrs:
     group: ubuntu
     user: ubuntu
 groups:
-  datanodes:
+  namenode:
     size: 1
     baremetal:
       ips:
-      - 54.170.24.219
+      - 54.78.251.81
       sudoPassword: ''
     attrs: {
       }

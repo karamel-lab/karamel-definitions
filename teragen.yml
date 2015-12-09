@@ -12,8 +12,9 @@ attrs:
   teragen:
     group: vagrant
     user: vagrant
+    records: 100
 groups:
-  datanodes:
+  namenodes:
     size: 1
     baremetal:
       ips:
