@@ -10,7 +10,7 @@ cookbooks:
     github: karamel-lab/apache-hadoop-chef
   flink:
     branch: master
-    github: karamel-lab/flink-chef
+    github: ashansa/flink-chef
 attrs:
   hadoop:
     mr:

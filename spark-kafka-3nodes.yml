@@ -32,7 +32,6 @@ groups:
       sudoPassword: ''
     attrs:
       hadoop:
-        version: 2.7.1
         mr:
           user: vagrant
         yarn:
@@ -54,7 +53,6 @@ groups:
       sudoPassword: ''
     attrs:
       hadoop:
-        version: 2.7.1
         mr:
           user: vagrant
         yarn:

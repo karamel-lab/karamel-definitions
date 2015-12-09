@@ -1,0 +1,38 @@
+name: EC2FlinkWithHDFS
+ec2:
+    type: m3.large
+    region: eu-west-1
+cookbooks:
+  hadoop:
+    branch: master
+    github: karamel-lab/apache-hadoop-chef
+  flink:
+    branch: master
+    github: ashansa/flink-chef
+attrs:
+  hadoop:
+    mr:
+      user: ubuntu
+    yarn:
+      user: ubuntu
+  hdfs:
+    user: ubuntu
+  flink:
+    jobmanager:
+      heap_mbs: '1024'
+    user: ubuntu
+    taskmanager:
+      heap_mbs: '1024'
+groups:
+  namenodes:
+    size: 1
+    recipes:
+    - hadoop::nn
+    - hadoop::rm  
+    - flink::jobmanager
+  datanodes:
+    size: 1
+    recipes:
+    - hadoop::dn
+    - hadoop::nm
+    - flink::taskmanager
